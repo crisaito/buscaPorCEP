@@ -3,7 +3,8 @@
 require 'rails_helper'
 
 describe 'Addresses', type: :request do
-  let(:base_url) { 'https://cep.awesomeapi.com.br/json/05424020' }
+  let(:cep) { '05424020' }
+  let(:base_url) { "https://cep.awesomeapi.com.br/json/#{cep}" }
   let(:address_response) do
     {
       'cep': '05424020',
@@ -31,7 +32,7 @@ describe 'Addresses', type: :request do
       end
 
       it 'returns a successful response with the address' do
-        get v1_addresses_path
+        get v1_addresses_path(cep)
 
         expect(response).to have_http_status(:ok)
         expect(JSON.parse(response.body, symbolize_names: true)).to eq(address_response)
