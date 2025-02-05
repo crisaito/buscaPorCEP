@@ -16,6 +16,8 @@ gem "thruster", require: false
 
 group :development, :test do
   gem "brakeman", require: false
+  gem "pry-byebug"
+  gem "rspec-rails"
   gem "rubocop-rails-omakase", require: false
 end
 
@@ -27,4 +29,5 @@ end
 group :test do
   gem "capybara"
   gem "selenium-webdriver"
+  gem "webmock"
 end
