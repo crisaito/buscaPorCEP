@@ -13,9 +13,9 @@ module V1
       when "200"
         render json: address, status: :ok
       when "400"
-        render json: { erro: address['message'] }, status: :bad_request
+        render json: { erro: address["message"] }, status: :bad_request
       when "404"
-        render json: { erro: address['message'] }, status: :not_found
+        render json: { erro: address["message"] }, status: :not_found
       end
     end
   end

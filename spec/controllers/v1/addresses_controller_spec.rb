@@ -61,7 +61,7 @@ describe 'Addresses', type: :request do
         get v1_addresses_path(cep)
 
         expect(response).to have_http_status(:bad_request)
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq({"erro": address_invalid_response[:message]})
+        expect(JSON.parse(response.body, symbolize_names: true)).to eq({ "erro": address_invalid_response[:message] })
       end
     end
 
@@ -86,7 +86,7 @@ describe 'Addresses', type: :request do
         get v1_addresses_path(cep)
 
         expect(response).to have_http_status(:not_found)
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq({"erro": address_not_found_response[:message]})
+        expect(JSON.parse(response.body, symbolize_names: true)).to eq({ "erro": address_not_found_response[:message] })
       end
     end
   end
