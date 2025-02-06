@@ -1,20 +1,30 @@
 <div class="flex justify-center h-screen mx-16">
-  <div class="flex justify-center flex-col pr-8">
+  <div class="flex justify-center flex-col pr-8 max-w-xs">
     <h1 class="text-amber-700 font-bold text-4xl">Busca por CEP</h1>
     <p class="text-amber-700">Digite um CEP para encontrar o endereço</p>
-    <input
-      type="text"
-      class="text-gray-900 bg-stone-50 rounded-full placeholder:text-gray-400 focus:outline-none sm:text-sm/6"
-      placeholder="000000-000"
-    >
+    <%= form_with url: root_path, method: :get, local: true, class: "mt-10" do |form| %>
+      <%= form.text_field :cep,
+        value: params[:cep],
+        class: "text-gray-900 bg-stone-50 rounded-full placeholder:text-gray-400 focus:outline-none sm:text-sm/6",
+        placeholder: "000000-000"
+      %>
+    <% end %>
   </div>
 
   <div class="bg-stone-50 flex justify-center flex-col my-auto p-14 rounded-3xl">
-    <p>CEP</p>
-    <p>Endereço</p>
-    <p>Bairro</p>
-    <p>Cidade</p>
-    <p>Estado</p>
-    <p>DDD</p>
+    <% if @address %>
+      <p class="text-orange-300 text-xs">CEP</p>
+      <p class="text-amber-700 pb-2"> <%= @address['cep'] %></p>
+      <p class="text-orange-300 text-xs">Endereço</p>
+      <p class="text-amber-700 pb-2"> <%= @address['address'] %></p>
+      <p class="text-orange-300 text-xs">Bairro</p>
+      <p class="text-amber-700 pb-2"> <%= @address['district'] %></p>
+      <p class="text-orange-300 text-xs">Cidade</p>
+      <p class="text-amber-700 pb-2"> <%= @address['city'] %></p>
+      <p class="text-orange-300 text-xs">Estado</p>
+      <p class="text-amber-700 pb-2"> <%= @address['state'] %></p>
+      <p class="text-orange-300 text-xs">DDD</p>
+      <p class="text-amber-700 pb-2"> <%= @address['ddd'] %></p>
+    <% end %>
   </div>
 <div>
