@@ -13,6 +13,7 @@ gem "solid_queue"
 gem "bootsnap", require: false
 gem "kamal", require: false
 gem "thruster", require: false
+gem "tailwindcss-rails", "~> 4.0"
 
 group :development, :test do
   gem "brakeman", require: false
