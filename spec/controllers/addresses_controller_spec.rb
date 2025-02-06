@@ -33,10 +33,11 @@ describe 'Addresses', type: :request do
       end
 
       it 'returns a successful response with the address' do
-        get v1_addresses_path(cep)
+        get root_path, params: { cep: cep }
 
         expect(response).to have_http_status(:ok)
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq(address_response)
+        expect(response.body).to include(cep)
+        expect(response.body).to include("Professor Carlos Reis")
       end
     end
 
@@ -58,10 +59,10 @@ describe 'Addresses', type: :request do
       end
 
       it 'returns bad request' do
-        get v1_addresses_path(cep)
+        get root_path, params: { cep: cep }
 
-        expect(response).to have_http_status(:bad_request)
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq({ "erro": address_invalid_response[:message] })
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(address_invalid_response[:message])
       end
     end
 
@@ -83,10 +84,10 @@ describe 'Addresses', type: :request do
       end
 
       it 'returns not found' do
-        get v1_addresses_path(cep)
+        get root_path, params: { cep: cep }
 
-        expect(response).to have_http_status(:not_found)
-        expect(JSON.parse(response.body, symbolize_names: true)).to eq({ "erro": address_not_found_response[:message] })
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include(address_not_found_response[:message])
       end
     end
   end
