@@ -12,6 +12,5 @@ class Address < ApplicationRecord
   scope :searched_by_state, -> {
     select("state, cep, COUNT(*) as cep_count")
       .group(:state, :cep)
-      .order("cep_count DESC")
   }
 end
