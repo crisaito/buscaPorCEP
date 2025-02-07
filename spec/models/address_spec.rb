@@ -27,15 +27,14 @@ RSpec.describe Address, type: :model do
   end
 
   describe 'scopes' do
+    before do
+      10.times { Address.create(cep: '10002020', city: "São Paulo", state: "SP") }
+      5.times { Address.create(cep: '51004014', city: "São Paulo", state: "SP") }
+      11.times { Address.create(cep: '11031502', city: "São Paulo", state: "SP") }
+      Address.create(cep: '00011122', city: "São Paulo", state: "SP")
+    end
     context '.most_searched' do
-      before do
-        10.times { Address.create(cep: '10002020', city: "São Paulo", state: "SP") }
-        5.times { Address.create(cep: '51004014', city: "São Paulo", state: "SP") }
-        11.times { Address.create(cep: '11031502', city: "São Paulo", state: "SP") }
-        Address.create(cep: '00011122', city: "São Paulo", state: "SP")
-      end
-
-      it 'returns the 3 most searched ceps' do
+      it 'returns the 3 most searched addresses' do
         most_searched = Address.most_searched
 
         expect(most_searched.length).to eq(3)
@@ -46,6 +45,23 @@ RSpec.describe Address, type: :model do
         expect(most_searched.third.cep).to eq('51004014')
         expect(most_searched.third.cep_count).to eq(5)
         expect(most_searched.pluck(:cep)).not_to include("00011122")
+      end
+    end
+
+    context '.searched_by_state' do
+      before do
+        4.times { Address.create(cep: '21090090', city: "Rio de Janeiro", state: "RJ") }
+        2.times { Address.create(cep: '21012121', city: "Rio de Janeiro", state: "RJ") }
+
+        3.times { Address.create(cep: '31090090', city: "Belo Horizonte", state: "MG") }
+      end
+
+      it 'returns all addresses grouped by state and cep' do
+        searched_by_state = Address.searched_by_state
+
+        expect(searched_by_state.count { |address| address.state == "SP" }).to eq(4)
+        expect(searched_by_state.count { |address| address.state == "RJ" }).to eq(2)
+        expect(searched_by_state.count { |address| address.state == "MG" }).to eq(1)
       end
     end
   end
