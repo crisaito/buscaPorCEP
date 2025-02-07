@@ -1,4 +1,4 @@
-<div class="flex justify-center flex-col h-screen mx-16">
+<div class="flex justify-center flex-col m-40">
   <div class="flex">
     <div class="flex justify-center flex-col pr-8 max-w-[280px]">
       <h1 class="text-amber-700 font-bold text-4xl">Busca por CEP</h1>
@@ -50,14 +50,39 @@
     <% end %>
   </div>
 
-  <div class="mt-16 grid grid-cols-3">
-    <div class="">
-      <h2 class="text-center text-amber-700 font-bold text-2xl mb-2">CEPs mais buscados</h2>
-      <div class="text-center bg-stone-50 p-4 mx-10 rounded-2xl">
+  <div class="flex mt-16 grid grid-cols-3">
+    <div class="mx-4">
+      <h2 class=" h-14 text-center text-amber-700 font-bold text-lg mb-2">CEPs mais buscados</h2>
+      <div class="text-center bg-stone-50 p-4 rounded-2xl">
         <% @most_searched_ceps.each do |address| %>
           <div class="p-2">
             <span class="text-amber-700"><%= address.cep %></span>
             <span class="pl-2"><%= address.cep_count %> buscas</span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mx-4">
+      <h2 class=" h-14 text-center text-amber-700 font-bold text-lg mb-2">CEPs mais buscados por estado</h2>
+      <div class="text-center bg-stone-50 p-4 rounded-2xl">
+        <% @most_searched_by_state.each do |address| %>
+          <div class="p-2">
+            <span class="text-amber-700"><%= address[1].cep %></span>
+            <span class="text-amber-700"><%= address[1].state %></span>
+            <span class="pl-2"><%= address[1].cep_count %> buscas</span>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mx-4">
+      <h2 class=" h-14 text-center text-amber-700 font-bold text-lg mb-2">Quantidades de CEPs buscados por estado</h2>
+      <div class="text-center bg-stone-50 p-4 rounded-2xl">
+        <% @total_searched_by_state.each do |uf, total| %>
+          <div class="p-2">
+            <span class="text-amber-700"><%= uf %></span>
+            <span class="pl-2"><%= total %> buscas</span>
           </div>
         <% end %>
       </div>

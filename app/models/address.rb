@@ -8,4 +8,9 @@ class Address < ApplicationRecord
       .order("cep_count DESC")
       .limit(3)
   }
+
+  scope :searched_by_state, -> {
+    select("state, cep, COUNT(*) as cep_count")
+      .group(:state, :cep)
+  }
 end
