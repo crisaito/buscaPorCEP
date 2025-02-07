@@ -12,6 +12,7 @@ class AddressesController < ApplicationController
 
     @most_searched_ceps = Address.most_searched
     @most_searched_by_state = most_searched_by_state
+    @total_searched_by_state = total_searched_by_state
   end
 
   private
@@ -36,5 +37,11 @@ class AddressesController < ApplicationController
 
   def most_searched_by_state
     Address.searched_by_state.group_by(&:state).transform_values(&:first)
+  end
+
+  def total_searched_by_state
+    Address.searched_by_state.group_by(&:state).transform_values do |addresses|
+      addresses.sum(&:cep_count)
+    end
   end
 end
