@@ -14,9 +14,20 @@ class AddressesController < ApplicationController
   private
 
   def address_response(response)
-    return @address if response.code == "200"
+    if response.code == "200"
+      save_address
+      return @address
+    end
 
     @error_message = @address["message"]
     @address = nil
+  end
+
+  def save_address
+    Address.create!(
+      cep: @address['cep'],
+      city: @address['city'],
+      state: @address['state']
+    )
   end
 end
