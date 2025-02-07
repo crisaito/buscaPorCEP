@@ -25,9 +25,9 @@ class AddressesController < ApplicationController
 
   def save_address
     Address.create!(
-      cep: @address['cep'],
-      city: @address['city'],
-      state: @address['state']
+      cep: @address["cep"],
+      city: @address["city"],
+      state: @address["state"]
     )
   end
 end
