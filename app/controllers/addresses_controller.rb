@@ -5,6 +5,7 @@ class AddressesController < ApplicationController
 
   def search
     @most_searched_ceps = Address.most_searched
+    @most_searched_by_state = Address.most_searched_by_state
 
     uri = URI("#{BASE_URL}#{params[:cep]}")
     response = Net::HTTP.get_response(uri)
