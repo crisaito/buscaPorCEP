@@ -5,7 +5,7 @@ class AddressesController < ApplicationController
 
   def search
     @most_searched_ceps = Address.most_searched
-    @most_searched_by_state = Address.most_searched_by_state
+    @most_searched_by_state = most_searched_by_state
 
     uri = URI("#{BASE_URL}#{params[:cep]}")
     response = Net::HTTP.get_response(uri)
@@ -32,5 +32,9 @@ class AddressesController < ApplicationController
       city: @address["city"],
       state: @address["state"]
     )
+  end
+
+  def most_searched_by_state
+    Address.searched_by_state.group_by(&:state).transform_values(&:first)
   end
 end
