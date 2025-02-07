@@ -25,4 +25,28 @@ RSpec.describe Address, type: :model do
       end
     end
   end
+
+  describe 'scopes' do
+    context '.most_searched' do
+      before do
+        10.times { Address.create(cep: '10002020', city: "São Paulo", state: "SP") }
+        5.times { Address.create(cep: '51004014', city: "São Paulo", state: "SP") }
+        11.times { Address.create(cep: '11031502', city: "São Paulo", state: "SP") }
+        Address.create(cep: '00011122', city: "São Paulo", state: "SP")
+      end
+
+      it 'returns the 3 most searched ceps' do
+        most_searched = Address.most_searched
+
+        expect(most_searched.length).to eq(3)
+        expect(most_searched.first.cep).to eq('11031502')
+        expect(most_searched.first.cep_count).to eq(11)
+        expect(most_searched.second.cep).to eq('10002020')
+        expect(most_searched.second.cep_count).to eq(10)
+        expect(most_searched.third.cep).to eq('51004014')
+        expect(most_searched.third.cep_count).to eq(5)
+        expect(most_searched.pluck(:cep)).not_to include("00011122")
+      end
+    end
+  end
 end
