@@ -1,24 +1,59 @@
-# README
+## Busca Por CEP
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Uma aplicação web que permite a consulta de informações de CEPs brasileiros
+consumindo informações da API [Awesomeapi](https://docs.awesomeapi.com.br/api-cep) e exibe estatísticas de quantidade de buscas por CEP.
 
-Things you may want to cover:
+### Funcionalidades
 
-* Ruby version
+✅ Consulta por CEP e exibição das informações de endereço do CEP buscado <br>
+✅ Estatística dos 3 CEPs mais buscados na aplicação <br>
+✅ Estatística dos CEPs mais buscados por Estado <br>
+✅ Estatística da quantidade de CEPs buscados por Estado
 
-* System dependencies
+![peek_2](https://github.com/user-attachments/assets/436e08c5-f6de-448d-84ee-ee4ad9be6104)
 
-* Configuration
+### Como rodar a aplicação
 
-* Database creation
+No terminal, execute o comando abaixo para fazer o clone do projeto na sua máquina:
+```bash
+git clone git@github.com:crisaito/buscaPorCEP.git
+cd buscaPorCEP
+```
+Inicialização via terminal
+  - requer ruby versão 3.3.7
 
-* Database initialization
+  - Instale as gems e crie+migre o banco:
+    ```bash
+    bundle install
+    rails db:setup
+    ```
+  - Inicie a aplicação
+    ```bash
+    bin/dev
+    ```
 
-* How to run the test suite
+Inicialização via docker
+  - requer docker
 
-* Services (job queues, cache servers, search engines, etc.)
+  - Monte a imagem:
+    ```bash
+    docker compose build
+    ```
+  - Rode o container:
+    ```bash
+    docker compose run --rm app bash
+    ```
 
-* Deployment instructions
+Acesse a aplicação em http://localhost:3000
 
-* ...
+Para visualizar os testes execute:
+```bash
+rspec
+```
+
+### Tecnologias
+
+- Ruby 3.3.7
+- Rails 8.0.1
+- Tailwind
+- Docker
