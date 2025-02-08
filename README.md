@@ -41,7 +41,11 @@ Inicialização via docker
     ```
   - Rode o container:
     ```bash
-    docker compose run --rm app bash
+    docker compose run --rm --service-ports app bash
+    ```
+  - Inicie a aplicação:
+    ```bash
+    rails s -b 0.0.0.0
     ```
 
 Acesse a aplicação em http://localhost:3000
