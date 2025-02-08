@@ -1,0 +1,13 @@
+services:
+  app:
+    image: ruby:3.3.7
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ".:/app"
+    ports:
+      - "3000:3000"
+    command: rails s -b 0.0.0.0
+    environment:
+      - RAILS_ENV=development
